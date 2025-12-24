@@ -1,0 +1,116 @@
+<div class="wrapper">
+  <app-container class="welcome-block-container">
+    <div class="info">
+      <img class="logo" ngSrc="/images/logo.png" height="467" width="1204" alt="Logo"/>
+      <p>Welcome to the JS&B Awards 2025!</p>
+      <p>Here, the community comes together to celebrate the best creators across a variety of categories. Browse the
+        nominees, discover new talents, and cast your vote to help shape this year’s winners.</p>
+    </div>
+  </app-container>
+
+  <app-container class="about-block-container">
+    <div class="about-me">
+      <p>About me</p>
+      <div class="about-me-block">
+        <img class="pfp" ngSrc="/images/pfp.png" height="225" width="225" alt="Profile picture">
+        <p>I’m Gaztrom, the creator behind this event and a YouTube channel where I make content and animations inspired
+          by Just Shapes & Beats. I came up with the JS&B Awards 2025 to give the community a fun way to celebrate their
+          favorite creators — and now it’s your turn to cast your vote!</p>
+      </div>
+    </div>
+  </app-container>
+
+  <div class="auth-error glass-card">
+    @if (triedToAuthorize() && !waitingForResponse() && !wasAuthorized()) {
+      Incorrect email or password!
+    } @else {
+      To vote you need to sign-in!
+    }
+  </div>
+
+  <div class="auth-block-container">
+    <app-container>
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="form">
+        <div class="buttons">
+          <app-button [isTight]="true"
+                      icon="ci-google"
+                      text="Sign-in using Google"
+                      (click)="authorizeWithGoogle()"/>
+        </div>
+
+        <div class="or">
+          <div class="or__line"></div>
+          <div class="or__text">or</div>
+          <div class="or__line"></div>
+        </div>
+
+        <div class="label-and-error">
+          <label for="name">
+            Name
+          </label>
+
+          @if (getErrorMessage('username')) {
+            <div class="bar">
+            </div>
+
+            <div class="error">
+              {{ getErrorMessage('username') }}
+            </div>
+          }
+        </div>
+
+        <input class="input glass-card"
+               id="name"
+               type="text"
+               placeholder="eg. John"
+               formControlName="username">
+
+        <div class="label-and-error">
+          <label for="email">
+            Email
+          </label>
+
+          @if (getErrorMessage('email')) {
+            <div class="bar">
+            </div>
+
+            <div class="error">
+              {{ getErrorMessage('email') }}
+            </div>
+          }
+        </div>
+
+        <input class="input glass-card"
+               id="email"
+               type="email"
+               placeholder="your@mailbox.com"
+               formControlName="email">
+
+        <div class="label-and-error">
+          <label for="password">
+            Password
+          </label>
+
+          @if (getErrorMessage('password')) {
+            <div class="bar">
+            </div>
+
+            <div class="error">
+              {{ getErrorMessage('password') }}
+            </div>
+          }
+        </div>
+
+        <input class="input glass-card"
+               id="password"
+               type="password"
+               placeholder="Enter your password"
+               formControlName="password">
+
+        <app-button [text]="waitingForResponse() ? 'Signing in!' : 'Sign-in'"
+                    [isDisabled]="waitingForResponse()"
+                    [showSpinner]="waitingForResponse()"/>
+      </form>
+    </app-container>
+  </div>
+</div>

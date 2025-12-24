@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('jsab-awards');
+  protected readonly title = signal('Just Shapes & Beats Awards 2025');
 }

@@ -1,0 +1,11 @@
+<button class="glass-card" [class.tight]="isTight()" [disabled]="isDisabled()">
+  @if (icon()) {
+    <i [ngClass]="icon()" class="ci ci-2x"></i>
+  }
+
+  {{ text() }}
+
+  @if (showSpinner()) {
+    <img class="spinner" ngSrc="/icons/spinner.svg" height="32" width="32" priority alt="Spinner">
+  }
+</button>
