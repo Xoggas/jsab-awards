@@ -9,8 +9,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes)
     provideRouter(routes),
+    provideFirebaseApp(() => initializeApp({
     })),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
