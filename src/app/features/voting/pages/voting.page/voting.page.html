@@ -1,0 +1,5 @@
+<div class="wrapper">
+  <app-header [nominations]="nominations()"
+              [(selectedNomination)]="selectedNomination"/>
+  <app-entries-grid  [selectedNomination]="selectedNomination()"/>
+</div>

@@ -1,0 +1,10 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+}
+
+.skeleton {
+  min-height: 275px;
+  border-radius: 1em;
+}

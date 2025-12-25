@@ -1,0 +1,30 @@
+header {
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nomination-selector {
+  cursor: pointer;
+  user-select: none;
+}
+
+.nomination-selector.selected {
+  text-decoration: underline;
+}
+
+.nomination-selector:hover {
+  opacity: 0.8;
+}
+
+.nomination-selector:active {
+  opacity: 0.6;
+}
+
+.skeleton {
+  padding: 0.25em 1em;
+  width: 10%;
+  height: 25px;
+}

@@ -32,3 +32,44 @@ html, body {
   border: 1px solid #344044;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
 }
+
+.skeleton {
+  animation: skeleton-shimmer 1.5s infinite linear;
+  background: linear-gradient(
+    90deg,
+    rgba(240,240,240,0.6) 25%,    /* Прозрачность в градиенте */
+    rgba(224,224,224,0.4) 50%,
+    rgba(240,240,240,0.6) 75%
+  );
+  background-size: 200% 100%;
+  opacity: 0.25;                  /* Дополнительная прозрачность */
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.skeleton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  animation: shimmer-move 1.5s infinite linear;
+}
+
+@keyframes shimmer-move {
+  0% { left: -200%; }
+  100% { left: 200%; }
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

@@ -1,0 +1,9 @@
+@for (entry of entries(); track entry.id) {
+  <app-entry [entry]="entry"
+             [(currentVote)]="currentVote"
+             [(waitingForResponse)]="waitingForResponse"/>
+} @empty {
+  @for (entry of emptyEntries; track entry) {
+    <div class="skeleton"></div>
+  }
+}

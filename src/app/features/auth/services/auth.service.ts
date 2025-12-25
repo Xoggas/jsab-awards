@@ -3,14 +3,12 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  TwitterAuthProvider,
-  FacebookAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
   UserCredential
 } from '@angular/fire/auth';
 import {UserAuthDto} from '../models/user-auth.dto';
-import {doc, Firestore, setDoc} from "@angular/fire/firestore";
+import {UserService} from './user.service';
 
 type AuthResponse =
   | { isOk: boolean; user?: UserCredential }
@@ -21,10 +19,8 @@ type AuthResponse =
 })
 export class AuthService {
   auth = inject(Auth);
-  firestore = inject(Firestore);
   googleAuthProvider = new GoogleAuthProvider();
-  xAuthProvider = new TwitterAuthProvider();
-  facebookAuthProvider = new FacebookAuthProvider();
+  userService = inject(UserService);
 
   async authorizeWithEmailAndPassword(dto: UserAuthDto): Promise<AuthResponse> {
     try {
@@ -36,7 +32,7 @@ export class AuthService {
         try {
           const response = await createUserWithEmailAndPassword(this.auth, dto.email, dto.password);
           const id = response.user.uid;
-          await this.createUserInFirestore(id, dto.username);
+          await this.userService.createUser(id, dto.username);
           return {isOk: true, user: response};
         }
         catch (e: any) {
@@ -56,19 +52,11 @@ export class AuthService {
     try {
       const response = await signInWithPopup(this.auth, provider);
       const [id, username] = [response.user.uid, response.user.displayName ?? "Unknown name"];
-      await this.createUserInFirestore(id, username);
+      await this.userService.createUser(id, username);
       return {isOk: true, user: response};
     }
     catch (e: any) {
       return {isOk: false};
     }
-  }
-
-  private async createUserInFirestore(id: string, username: string): Promise<void> {
-    const userRef = doc(this.firestore, 'users', id);
-    await setDoc(userRef, {
-      username: username,
-      isAdmin: false
-    });
   }
 }

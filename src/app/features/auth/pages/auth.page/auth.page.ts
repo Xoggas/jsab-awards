@@ -6,6 +6,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Router} from '@angular/router';
 import {UserAuthDto} from '../../models/user-auth.dto';
 import {AuthService} from '../../services/auth.service';
+import {delay} from '../../../../shared/helpers/delay.helper';
 
 @Component({
   selector: 'app-auth.page',
@@ -106,10 +107,6 @@ export class AuthPage {
     return null;
   }
 
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   async onSubmit(): Promise<void> {
     this.authForm.markAllAsTouched();
 
@@ -130,10 +127,10 @@ export class AuthPage {
 
     const response = await this.authService.authorizeWithEmailAndPassword(userAuthDto);
 
-    await this.delay(1000);
+    await delay(1000);
 
     if (response.isOk) {
-      await this.router.navigate(['/voting/remixes']);
+      await this.router.navigate(['/voting']);
     }
     else {
       this.waitingForResponse.set(false);
@@ -145,7 +142,7 @@ export class AuthPage {
     const response = await this.authService.authorizeWithGoogle();
 
     if (response.isOk) {
-      await this.router.navigate(['/voting/remixes']);
+      await this.router.navigate(['/voting']);
     }
   }
 }

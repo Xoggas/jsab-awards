@@ -1,0 +1,14 @@
+<header class="glass-card">
+  @for (nomination of nominations(); track nomination.id) {
+    <p [class.selected]="selectedNomination() == nomination"
+       class="nomination-selector"
+       (click)="selectNomination(nomination)">
+      {{ nomination.name }}
+    </p>
+  }
+  @empty {
+    @for (item of emptyItems; track item) {
+      <div class="skeleton"></div>
+    }
+  }
+</header>

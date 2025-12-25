@@ -83,13 +83,13 @@
 }
 
 .form {
-  padding: 1em;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   justify-content: space-between;
   gap: 1em;
+  padding: 1em;
 }
 
 .welcome-texts {
@@ -126,6 +126,8 @@
   justify-content: stretch;
   gap: 1em;
   font-size: 60%;
+  width: 100%;
+  padding: 1em;
 }
 
 input {

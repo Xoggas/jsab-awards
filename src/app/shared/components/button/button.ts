@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, HostBinding, input} from '@angular/core';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 
 @Component({
@@ -14,6 +14,11 @@ export class Button {
   icon = input<string>();
   text = input.required<string>();
   isTight = input<boolean>();
-  isDisabled = input<boolean>();
   showSpinner = input<boolean>();
+  isDisabled = input<boolean>();
+
+  @HostBinding('attr.disabled')
+  get disabledAttr() {
+    return this.isDisabled() ? '' : null;
+  }
 }
