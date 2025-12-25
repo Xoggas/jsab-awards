@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, model, signal, untracked} from '@angular/core';
+import {Component, effect, inject, input, signal, untracked} from '@angular/core';
 import {EntryDto} from '../../models/entry.dto';
 import {NominationDto} from '../../models/nomination.dto';
 import {EntriesService} from '../../services/entries.service';

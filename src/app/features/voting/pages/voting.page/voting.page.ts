@@ -1,12 +1,7 @@
-import {Component, effect, inject, model, OnInit, signal, untracked} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {HeaderComponent} from '../../components/header/header.component';
 import {NominationsService} from '../../services/nominations.service';
 import {NominationDto} from '../../models/nomination.dto';
-import {from} from 'rxjs';
-import {Container} from '../../../../shared/components/container/container';
-import {EntryDto} from '../../models/entry.dto';
-import {EntriesService} from '../../services/entries.service';
-import {delay} from '../../../../shared/helpers/delay.helper';
 import {EntriesGridComponent} from '../../components/entries-grid.component/entries-grid.component';
 
 @Component({

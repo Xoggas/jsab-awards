@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, model, Sanitizer, signal, untracked} from '@angular/core';
+import {Component, effect, inject, input, model, signal, untracked} from '@angular/core';
 import {VoteDto} from '../../models/vote.dto';
 import {EntryDto} from '../../models/entry.dto';
 import {VotingService} from '../../services/voting.service';
