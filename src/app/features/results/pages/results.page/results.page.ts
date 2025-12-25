@@ -5,12 +5,14 @@ import {HeaderComponent} from '../../../voting/components/header/header.componen
 import {ResultComponent} from '../../components/result.component/result.component';
 import {RankingService} from '../../services/ranking.service';
 import {RankedEntryDto} from '../../models/ranked-entry.dto';
+import {Container} from '../../../../shared/components/container/container';
 
 @Component({
   selector: 'app-results-page',
   imports: [
     HeaderComponent,
-    ResultComponent
+    ResultComponent,
+    Container
   ],
   templateUrl: './results.page.html',
   styleUrl: './results.page.css',

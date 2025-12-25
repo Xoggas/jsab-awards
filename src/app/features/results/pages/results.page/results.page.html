@@ -6,5 +6,10 @@
     @for (entry of topEntries(); track entry.id) {
       <app-result-component [entry]="entry"/>
     }
+    @empty {
+      <app-container>
+        Not enough data!
+      </app-container>
+    }
   </div>
 </div>
