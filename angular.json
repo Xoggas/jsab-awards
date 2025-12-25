@@ -21,6 +21,11 @@
                 "input": "public",
                 "output": "/"
               },
+              {
+                "glob": "404.html",
+                "input": "src",
+                "output": "/"
+              },
               "src/assets"
             ],
             "styles": [
