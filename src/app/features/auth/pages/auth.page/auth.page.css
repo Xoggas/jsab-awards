@@ -87,7 +87,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  justify-content: space-between;
+  justify-content: start;
   gap: 1em;
   padding: 1em;
 }
