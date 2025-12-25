@@ -1,15 +1,17 @@
-import {Component, effect, inject, input, model, signal, untracked} from '@angular/core';
+import {Component, effect, HostBinding, inject, input, model, signal, untracked} from '@angular/core';
 import {VoteDto} from '../../models/vote.dto';
 import {EntryDto} from '../../models/entry.dto';
 import {VotingService} from '../../services/voting.service';
 import {Button} from '../../../../shared/components/button/button';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {delay} from '../../../../shared/helpers/delay.helper';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-entry',
   imports: [
-    Button
+    Button,
+    NgOptimizedImage
   ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.css',
@@ -39,11 +41,11 @@ export class EntryComponent {
       const entry = this.entry();
 
       untracked(() => {
-        if (currentVote == undefined) {
+        if (!currentVote) {
           this.buttonText.set("Vote");
           this.isButtonDisabled.set(false);
         }
-        else if (currentVote.entry.id == entry.id) {
+        else if (currentVote.entry?.id == entry.id) {
           this.buttonText.set("Remove vote");
           this.isButtonDisabled.set(false);
         }
@@ -53,6 +55,11 @@ export class EntryComponent {
         }
       });
     });
+  }
+
+  @HostBinding('attr.type')
+  get getType(): string {
+    return this.entry().type;
   }
 
   async toggleVote(): Promise<void> {

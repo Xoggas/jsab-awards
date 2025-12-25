@@ -4,6 +4,7 @@ export interface EntryDto {
   id: string;
   link: string;
   name: string;
-  type: string;
   nomination: NominationDto;
+  type: string;
+  channel_link: string;
 }

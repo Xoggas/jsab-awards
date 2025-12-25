@@ -1,9 +1,43 @@
-:host {
+:host[type="video"] {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   padding: 1em;
   min-width: 0;
+  overflow: hidden;
+}
+
+:host[type="channel"] {
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+  overflow: hidden;
+}
+
+.name-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.profile-picture {
+  border-radius: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: 100ms;
+}
+
+.profile-picture:hover {
+  opacity: 0.8;
+}
+
+.profile-picture:active {
+  opacity: 0.6;
 }
 
 .entry-name {
@@ -15,7 +49,7 @@
 .video-wrapper {
   width: 100%;
   aspect-ratio: 16 / 9;
-  flex-shrink: 0;  /* не сжимать */
+  flex-shrink: 0; /* не сжимать */
 }
 
 .video-wrapper iframe {

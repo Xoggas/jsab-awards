@@ -1,14 +1,29 @@
-<p class="entry-name" [innerHTML]="safeName"></p>
+@if (entry().type === "video") {
+  <p class="entry-name" [innerHTML]="safeName"></p>
 
-<div class="video-wrapper">
-  <iframe [src]="safeUrl"
-          [title]="entry().name"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-  </iframe>
-</div>
+  <div class="video-wrapper">
+    <iframe [src]="safeUrl"
+            [title]="entry().name"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+    </iframe>
+  </div>
 
-<app-button (click)="toggleVote()"
-            [text]="buttonText()"
-            [isDisabled]="waitingForResponse() || isButtonDisabled()"
-            [showSpinner]="waitingForResponse()"/>
+  <app-button (click)="toggleVote()"
+              [text]="buttonText()"
+              [isDisabled]="waitingForResponse() || isButtonDisabled()"
+              [showSpinner]="waitingForResponse()"/>
+} @else if (entry().type == "channel") {
+  <a [href]="entry().channel_link" target="_blank">
+    <img class="profile-picture" [ngSrc]="entry().link" alt="" width="125" height="125">
+  </a>
+  <div class="name-button-wrapper">
+    <p class="entry-name" [innerHTML]="safeName"></p>
+    <app-button (click)="toggleVote()"
+                [text]="buttonText()"
+                [isDisabled]="waitingForResponse() || isButtonDisabled()"
+                [showSpinner]="waitingForResponse()"/>
+  </div>
+}
+
+

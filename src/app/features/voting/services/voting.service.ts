@@ -13,10 +13,6 @@ export class VotingService {
   auth = inject(Auth);
   supabase = inject(SupabaseService);
 
-  private getCurrentUser(): User | null {
-    return this.auth.currentUser;
-  }
-
   async getVoteForNomination(nomination: NominationDto): Promise<Result<VoteDto>> {
     const user = this.getCurrentUser();
 
@@ -31,20 +27,23 @@ export class VotingService {
       .select(`
         id,
         user(*),
-        entry(
-          *,
-          nomination(*)
-        )
+        entry(*, nomination(*))
       `)
-      .eq('user', user.uid)
-      .eq('entry.nomination', nomination.id);
+      .eq('user', user.uid);
 
-    if (error || data && data.length == 0) {
-      return fail('There is no vote');
+    if (error) {
+      return fail(error.message);
     }
 
     // @ts-ignore
-    return success(data[0] as VoteDto);
+    const votes = (data as VoteDto[])
+      .filter(x => x.entry.nomination.id === nomination.id);
+
+    if (votes.length > 0) {
+      return success(votes[0]);
+    }
+
+    return fail("Vote wasn't found");
   }
 
   async addVote(entry: EntryDto): Promise<Result<VoteDto>> {
@@ -94,5 +93,9 @@ export class VotingService {
       .eq('id', vote.id);
 
     return success(undefined);
+  }
+
+  private getCurrentUser(): User | null {
+    return this.auth.currentUser;
   }
 }

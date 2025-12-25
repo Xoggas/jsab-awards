@@ -30,6 +30,7 @@ export class EntriesGridComponent {
 
       await untracked(async () => {
         this.entries.set([]);
+        this.currentVote.set(undefined);
 
         if (nomination == undefined) {
           return;
@@ -37,20 +38,26 @@ export class EntriesGridComponent {
 
         const entriesResult = await this.entriesService.getEntriesForNomination(nomination);
 
-        if (entriesResult.success) {
-          this.entries.set(this.shuffle(entriesResult.data));
+        if (entriesResult.failure) {
+          return;
         }
+
+        let shuffled = this.shuffle(entriesResult.data);
 
         const voteResult = await this.votingService.getVoteForNomination(nomination);
 
         if (voteResult.success) {
-          this.currentVote.set(voteResult.data);
+          const vote = voteResult.data;
+          shuffled = this.moveVotedEntryForward(shuffled, entry => entry.id == vote.entry.id);
+          this.currentVote.set(vote);
         }
+
+        this.entries.set(shuffled);
       })
     });
   }
 
-  shuffle<T>(array: Array<T>) {
+  shuffle<T>(array: Array<T>): Array<T> {
     let currentIndex = array.length, randomIndex;
 
     while (currentIndex !== 0) {
@@ -60,5 +67,12 @@ export class EntriesGridComponent {
     }
 
     return array;
+  }
+
+  moveVotedEntryForward<T>(array: Array<T>, predicate: (a: T) => boolean): Array<T> {
+    const result = [...array];
+    const pinnedItemIndex = result.findIndex(predicate);
+    [result[0], result[pinnedItemIndex]] = [result[pinnedItemIndex], result[0]];
+    return result;
   }
 }
