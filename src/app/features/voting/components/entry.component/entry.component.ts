@@ -3,7 +3,7 @@ import {VoteDto} from '../../models/vote.dto';
 import {EntryDto} from '../../models/entry.dto';
 import {VotingService} from '../../services/voting.service';
 import {Button} from '../../../../shared/components/button/button';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {delay} from '../../../../shared/helpers/delay.helper';
 
 @Component({
@@ -13,12 +13,14 @@ import {delay} from '../../../../shared/helpers/delay.helper';
   ],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.css',
+  host: {class: 'glass-card'}
 })
 export class EntryComponent {
   votingService = inject(VotingService);
   sanitizer = inject(DomSanitizer);
 
   safeUrl: SafeResourceUrl | undefined = undefined;
+  safeName: SafeHtml | undefined = undefined;
   entry = input.required<EntryDto>();
   currentVote = model.required<VoteDto | undefined>();
   waitingForResponse = model.required<boolean>();
@@ -29,6 +31,7 @@ export class EntryComponent {
   constructor() {
     effect(() => {
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.entry().link);
+      this.safeName = this.sanitizer.bypassSecurityTrustHtml(this.entry().name);
     });
 
     effect(() => {

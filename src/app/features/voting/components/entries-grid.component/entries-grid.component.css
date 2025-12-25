@@ -1,10 +1,23 @@
 :host {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1em;
+  align-items: stretch; /* все грид-ячейки одинаковой высоты */
 }
 
 .skeleton {
   min-height: 275px;
   border-radius: 1em;
+}
+
+@media screen and (max-width: 1100px) {
+  :host {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :host {
+    grid-template-columns: 1fr;
+  }
 }

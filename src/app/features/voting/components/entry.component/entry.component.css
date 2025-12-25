@@ -1,13 +1,21 @@
-.entry {
+:host {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   padding: 1em;
+  min-width: 0;
+}
+
+.entry-name {
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
 }
 
 .video-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 9; /* просто указываем соотношение сторон */
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;  /* не сжимать */
 }
 
 .video-wrapper iframe {

@@ -38,7 +38,7 @@ export class EntriesGridComponent {
         const entriesResult = await this.entriesService.getEntriesForNomination(nomination);
 
         if (entriesResult.success) {
-          this.entries.set(entriesResult.data);
+          this.entries.set(this.shuffle(entriesResult.data));
         }
 
         const voteResult = await this.votingService.getVoteForNomination(nomination);
@@ -48,5 +48,17 @@ export class EntriesGridComponent {
         }
       })
     });
+  }
+
+  shuffle<T>(array: Array<T>) {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
   }
 }

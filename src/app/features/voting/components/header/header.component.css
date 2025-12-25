@@ -4,11 +4,24 @@ header {
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5em;
 }
 
 .nomination-selector {
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    padding: 1em 1em;
+    gap: 0.75em;
+  }
 }
 
 .nomination-selector.selected {
