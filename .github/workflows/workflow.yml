@@ -55,7 +55,7 @@ jobs:
 
       - name: Build Angular
         run: |
-          npm run build -- --configuration production --base-href https://xoggas.github.io/jsab-awards/ --deploy-url=https://xoggas.github.io/jsab-awards/
+          npm run build -- --configuration production --base-href /jsab-awards/
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
