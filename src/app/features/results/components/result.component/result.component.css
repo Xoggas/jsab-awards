@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  padding: 1em 1em 1em 1em;
+  gap: 2em;
+  align-items: center;
+}
+
+.name-and-votes {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 1em;
+}
+
+.rank {
+  margin-left: auto;
+  margin-right: 1em;
+  font-size: 2em;
+}
+
+.profile-picture {
+  border-radius: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: 100ms;
+}
+
+.video-wrapper {
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0; /* не сжимать */
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 1em;
+}

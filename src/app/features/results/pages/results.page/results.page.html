@@ -1,1 +1,10 @@
-<p>results.page works!</p>
+<div class="wrapper">
+  <app-header [nominations]="nominations()"
+              [(selectedNomination)]="selectedNomination"/>
+
+  <div class="entries">
+    @for (entry of topEntries(); track entry.id) {
+      <app-result-component [entry]="entry"/>
+    }
+  </div>
+</div>

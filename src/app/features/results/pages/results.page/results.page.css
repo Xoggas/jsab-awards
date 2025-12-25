@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  height: 100%;
+  font-size: 110%;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  :host {
+    padding: 1em;
+  }
+}

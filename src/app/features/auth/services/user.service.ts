@@ -2,19 +2,32 @@ import {inject, Injectable} from '@angular/core';
 import {SupabaseService} from '../../../shared/services/supabase.service';
 import {UserDto} from '../models/user.dto';
 import {fail, Result, success} from '../../../shared/types/result.type';
+import {Auth, User} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  auth = inject(Auth);
   supabase = inject(SupabaseService);
 
-  async getUserById(id: string): Promise<Result<UserDto>> {
+  getCurrentUserFromFirebase(): User | null {
+    return this.auth.currentUser;
+  }
+
+  async getCurrentUserFromDb(): Promise<Result<UserDto>> {
+    const firebaseUser = this.getCurrentUserFromFirebase();
+
+    if (!firebaseUser) {
+      return fail("User isn't authorized");
+    }
+
+    const id = firebaseUser.uid;
     const db = this.supabase.client;
 
     const {data: users} = await db
       .from('users')
-      .select('id')
+      .select('*')
       .eq('id', id)
       .limit(1);
 

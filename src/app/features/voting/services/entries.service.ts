@@ -10,7 +10,7 @@ import {fail, Result, success} from '../../../shared/types/result.type';
 export class EntriesService {
   supabase = inject(SupabaseService);
 
-  async getEntriesForNomination(nominationDto: NominationDto): Promise<Result<EntryDto[]>> {
+  async getEntriesForNomination(nomination: NominationDto): Promise<Result<EntryDto[]>> {
     const db = this.supabase.client;
 
     const {data, error} = await db
@@ -19,7 +19,7 @@ export class EntriesService {
         *,
         nomination(*)
       `)
-      .eq('nomination', nominationDto.id);
+      .eq('nomination', nomination.id);
 
     if (error) {
       return fail("Couldn't find any entries");

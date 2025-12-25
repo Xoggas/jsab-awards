@@ -5,8 +5,7 @@
        (click)="selectNomination(nomination)">
       {{ nomination.name }}
     </p>
-  }
-  @empty {
+  } @empty {
     @for (item of emptyItems; track item) {
       <div class="skeleton"></div>
     }

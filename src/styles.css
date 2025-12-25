@@ -20,8 +20,17 @@ body {
 }
 
 html, body {
-  width: 100%;
-  min-height: 100vh;
+  min-height: 100vh; /* 100% of the viewport height */
+  height: auto; /* Allows content to push height beyond min-height */
+  margin: 0; /* Removes default browser margin */
+  overflow: auto; /* Adds scrollbars if content exceeds the viewport */
+}
+
+app-root {
+  display: block; /* Ensures the height/min-height properties work as expected */
+  min-height: 100vh; /* Sets a minimum height of the full viewport */
+  /* You can also use a specific pixel value if desired: */
+  /* min-height: 800px; */
 }
 
 .glass-card {

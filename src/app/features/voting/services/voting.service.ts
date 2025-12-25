@@ -1,20 +1,20 @@
 import {inject, Injectable} from '@angular/core';
 import {EntryDto} from '../models/entry.dto';
 import {VoteDto} from '../models/vote.dto';
-import {Auth, User} from '@angular/fire/auth';
 import {NominationDto} from '../models/nomination.dto';
 import {SupabaseService} from '../../../shared/services/supabase.service';
 import {fail, Result, success} from '../../../shared/types/result.type';
+import {UserService} from '../../auth/services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VotingService {
-  auth = inject(Auth);
   supabase = inject(SupabaseService);
+  userService = inject(UserService);
 
   async getVoteForNomination(nomination: NominationDto): Promise<Result<VoteDto>> {
-    const user = this.getCurrentUser();
+    const user = this.userService.getCurrentUserFromFirebase();
 
     if (!user) {
       return fail('User is null');
@@ -27,27 +27,25 @@ export class VotingService {
       .select(`
         id,
         user(*),
-        entry(*, nomination(*))
+        entry!inner(*, nomination!inner(*))
       `)
-      .eq('user', user.uid);
+      .eq('user', user.uid)
+      .eq('entry.nomination.id', nomination.id);
 
     if (error) {
       return fail(error.message);
     }
 
-    // @ts-ignore
-    const votes = (data as VoteDto[])
-      .filter(x => x.entry.nomination.id === nomination.id);
-
-    if (votes.length > 0) {
-      return success(votes[0]);
+    if (data && data.length > 0) {
+      // @ts-ignore
+      return success(data[0] as VoteDto);
     }
 
-    return fail("Vote wasn't found");
+    return fail("Didn't find any vote");
   }
 
   async addVote(entry: EntryDto): Promise<Result<VoteDto>> {
-    const user = this.getCurrentUser();
+    const user = this.userService.getCurrentUserFromFirebase();
 
     if (!user) {
       return fail('User is null');
@@ -93,9 +91,5 @@ export class VotingService {
       .eq('id', vote.id);
 
     return success(undefined);
-  }
-
-  private getCurrentUser(): User | null {
-    return this.auth.currentUser;
   }
 }

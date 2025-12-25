@@ -1,0 +1,22 @@
+@if (entry().rank == -1) {
+  <p>No vote</p>
+} @else {
+  @if (entry().type == "video") {
+    <div class="video-wrapper">
+      <iframe [src]="safeUrl"
+              [title]="entry().name"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+      </iframe>
+    </div>
+  } @else if (entry().type == "channel") {
+    <img class="profile-picture" [ngSrc]="entry().link" alt="" width="125" height="125">
+  }
+
+  <div class="name-and-votes">
+    <p [innerHTML]="safeName"></p>
+    <p>Votes: {{ entry().vote_count }}</p>
+  </div>
+
+  <p class="rank">#{{ entry().rank }}</p>
+}

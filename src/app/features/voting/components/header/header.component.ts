@@ -9,6 +9,7 @@ import {NominationDto} from '../../models/nomination.dto';
 })
 export class HeaderComponent {
   emptyItems = new Array(5).fill(0);
+
   nominations = input.required<NominationDto[]>();
   selectedNomination = model<NominationDto>();
 
