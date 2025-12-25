@@ -60,7 +60,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/jsab-awards
+          path: dist/jsab-awards/browser
 
   deploy:
     environment:
