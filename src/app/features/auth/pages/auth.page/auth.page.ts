@@ -41,7 +41,7 @@ export class AuthPage {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d)(?=[^!@#$%^&*]*[!@#$%^&*]).{8,}$/)
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])\S{8,}$/)
     ])
   });
 
