@@ -13,7 +13,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto repeat(2, 1fr);
+  grid-template-rows: auto auto 1fr;
   grid-column-gap: 1em;
   grid-row-gap: 1em;
 }
@@ -51,9 +51,13 @@
 .about-me {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
   padding: 1em;
   height: 100%;
+}
+
+.steam-link {
+  width: 100%;
 }
 
 .about-me > p:first-of-type {
@@ -62,8 +66,8 @@
 
 .about-me-block {
   display: flex;
-  flex-direction: row;
-  gap: 1.5em;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .pfp {

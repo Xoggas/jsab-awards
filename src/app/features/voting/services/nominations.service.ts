@@ -19,6 +19,7 @@ export class NominationsService {
       return fail("No nominations found");
     }
 
-    return success(data as NominationDto[]);
+    const nominations = data as NominationDto[];
+    return success(nominations.sort((a, b) => a.order - b.order));
   }
 }
