@@ -5,17 +5,23 @@ import {VotingPage} from './features/voting/pages/voting.page/voting.page';
 import {isAdminGuard} from './core/guards/is-admin.guard';
 import {redirectOnAuthGuard} from './core/guards/redirect-on-auth.guard';
 import {authGuard} from './core/guards/auth.guard';
+import {hasVotingEndedGuard} from './core/guards/has-voting-ended.guard';
+import {VotingEndedPage} from './features/voting/pages/voting-ended.page/voting-ended.page';
 
 export const routes: Routes = [
   {
     path: '',
     component: AuthPage,
-    canActivate: [redirectOnAuthGuard],
+    canActivate: [redirectOnAuthGuard, hasVotingEndedGuard],
   },
   {
     path: 'voting',
     component: VotingPage,
-    canActivate: [authGuard]
+    canActivate: [authGuard, hasVotingEndedGuard]
+  },
+  {
+    path: 'voting-ended',
+    component: VotingEndedPage,
   },
   {
     path: 'results',
