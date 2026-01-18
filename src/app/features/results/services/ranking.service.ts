@@ -17,7 +17,7 @@ export class RankingService {
       .from('top_entries_by_nomination')
       .select('*')
       .eq('nomination', nomination.id)
-      .lte('rank', 5)
+      .lte('rank', 6)
       .order('rank');
 
     if (error) {

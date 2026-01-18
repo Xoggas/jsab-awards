@@ -15,6 +15,11 @@ export const routes: Routes = [
     canActivate: [redirectOnAuthGuard, hasVotingEndedGuard],
   },
   {
+    path: 'results',
+    component: ResultsPage,
+    canActivate: [authGuard, isAdminGuard]
+  },
+  {
     path: 'voting',
     component: VotingPage,
     canActivate: [authGuard, hasVotingEndedGuard]
@@ -22,11 +27,6 @@ export const routes: Routes = [
   {
     path: 'voting-ended',
     component: VotingEndedPage,
-  },
-  {
-    path: 'results',
-    component: ResultsPage,
-    canActivate: [authGuard, isAdminGuard]
   },
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ];
