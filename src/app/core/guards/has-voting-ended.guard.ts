@@ -1,13 +1,12 @@
 import {CanActivateChildFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
 
-export const hasVotingEndedGuard: CanActivateChildFn = (childRoute, state) => {
+export const hasVotingEndedGuard: CanActivateChildFn = async () => {
   const router = inject(Router);
+  const votingEndDate = new Date(2026, 0, 25, 0, 0, 0, 0).getTime();
+  const currentTime = Date.now();
 
-  const votingEndDate = new Date(2026, 0, 18, 0, 0, 0, 0).getTime();
-  const currentDate = Date.now();
-
-  if (currentDate < votingEndDate) {
+  if (currentTime < votingEndDate) {
     return true;
   }
 
